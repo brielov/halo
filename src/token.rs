@@ -1,5 +1,6 @@
 #[derive(Debug, PartialEq)]
 pub enum Kind {
+    Comment,
     Eof,
     Identifier,
     Unknown,

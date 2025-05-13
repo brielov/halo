@@ -79,6 +79,10 @@ impl<'a> Lexer<'a> {
                 ')' => Kind::RParen,
                 ';' => Kind::Semi,
                 '~' => Kind::Tilde,
+                '#' => {
+                    self.consume_while(|x| x != '\n');
+                    Kind::Comment
+                }
                 '&' => {
                     if self.consume_if(|x| x == '&') {
                         Kind::AndAnd
@@ -429,6 +433,13 @@ mod tests {
     }
 
     #[test]
+    fn test_comments() {
+        let source = "# This is a comment";
+        let expected = vec![Kind::Comment];
+        assert_eq!(kinds_from_source(source), expected);
+    }
+
+    #[test]
     fn test_single_char_tokens() {
         let source = "@,{}[]();~";
         let expected = vec![
@@ -540,8 +551,8 @@ mod tests {
 
     #[test]
     fn test_unknown_and_whitespace() {
-        let source = "   # $";
-        let expected = vec![Kind::Unknown, Kind::Unknown];
+        let source = " $";
+        let expected = vec![Kind::Unknown];
         assert_eq!(kinds_from_source(source), expected);
     }
 }
