@@ -211,6 +211,7 @@ impl<'a> Lexer<'a> {
                     match &self.source[start..self.offset()] {
                         "async" => Kind::Async,
                         "break" => Kind::Break,
+                        "continue" => Kind::Continue,
                         "defer" => Kind::Defer,
                         "enum" => Kind::Enum,
                         "extend" => Kind::Extend,

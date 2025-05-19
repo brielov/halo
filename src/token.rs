@@ -23,6 +23,7 @@ pub enum Kind {
     // Keywords
     Async,
     Break,
+    Continue,
     Defer,
     Enum,
     Extend,
