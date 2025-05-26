@@ -110,3 +110,34 @@ pub struct Token<'a> {
     pub start: usize,
     pub end: usize,
 }
+
+impl Kind {
+    /// Returns true if the token kind is a prefix operator.
+    pub fn as_prefix_operator(&self) -> bool {
+        matches!(self, Kind::Not | Kind::Minus | Kind::Plus | Kind::Tilde)
+    }
+
+    /// Returns true if the token kind is a postfix operator.
+    pub fn is_postfix_operator(&self) -> bool {
+        matches!(self, Kind::Question)
+    }
+
+    /// Returns the precedence level if the token kind is an infix operator, otherwise None.
+    pub fn infix_precedence(&self) -> Option<u8> {
+        match self {
+            Kind::OrOR => Some(1),                                // Logical OR
+            Kind::AndAnd => Some(2),                              // Logical AND
+            Kind::Or => Some(3),                                  // Bitwise OR
+            Kind::Caret => Some(4),                               // Bitwise XOR
+            Kind::And => Some(5),                                 // Bitwise AND
+            Kind::EqEq | Kind::Ne => Some(6),                     // Equality
+            Kind::Lt | Kind::Le | Kind::Gt | Kind::Ge => Some(7), // Relational
+            Kind::Shl | Kind::Shr => Some(8),                     // Shift
+            Kind::Plus | Kind::Minus => Some(9),                  // Additive
+            Kind::Star | Kind::Slash | Kind::Percent => Some(10), // Multiplicative
+            Kind::Question => Some(11),                           // Postfix question operator
+            Kind::Dot => Some(12), // Infix dot operator for member access
+            _ => None,
+        }
+    }
+}
