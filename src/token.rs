@@ -1,4 +1,4 @@
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Kind {
     Comment,
     Eof,
@@ -18,7 +18,13 @@ pub enum Kind {
     Hex,
     Integer,
     Octal,
-    String,
+
+    // String
+    StringStart,        // Represents the opening quote "
+    StringLiteral,      // A literal string part, e.g., "Hello, "
+    InterpolationStart, // Represents #{
+    InterpolationEnd,   // Represents }
+    StringEnd,          // Represents the closing quote "
 
     // Keywords
     Async,
@@ -97,7 +103,7 @@ pub enum Kind {
     Tilde,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Token<'a> {
     pub kind: Kind,
     pub lexeme: &'a str,
