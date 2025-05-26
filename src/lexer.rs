@@ -227,6 +227,7 @@ impl<'a> Lexer<'a> {
                         "pub" => Kind::Pub,
                         "struct" => Kind::Struct,
                         "true" => Kind::True,
+                        "type" => Kind::Type,
                         "use" => Kind::Use,
                         "while" => Kind::While,
                         "with" => Kind::With,
@@ -503,7 +504,7 @@ mod tests {
 
     #[test]
     fn test_keywords_and_identifiers() {
-        let source = "async break fn struct true false let while myVar another_var";
+        let source = "async break fn struct true false let while type myVar another_var";
         let expected = vec![
             Kind::Async,
             Kind::Break,
@@ -513,6 +514,7 @@ mod tests {
             Kind::False,
             Kind::Let,
             Kind::While,
+            Kind::Type,
             Kind::Identifier,
             Kind::Identifier,
         ];

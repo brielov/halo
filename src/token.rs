@@ -39,6 +39,7 @@ pub enum Kind {
     Pub,
     Struct,
     True,
+    Type,
     Use,
     While,
     With,
