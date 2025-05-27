@@ -141,3 +141,119 @@ impl Kind {
         }
     }
 }
+
+impl<'a> Into<Kind> for &Token<'a> {
+    fn into(self) -> Kind {
+        self.kind
+    }
+}
+
+impl std::fmt::Display for Kind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let s = match self {
+            Kind::Comment => "Comment",
+            Kind::Eof => "End of File",
+            Kind::Identifier => "Identifier",
+            Kind::Unknown => "Unknown",
+
+            // Errors
+            Kind::InvalidChar => "Invalid Character",
+            Kind::InvalidNumber => "Invalid Number",
+            Kind::UnterminatedChar => "Unterminated Character",
+            Kind::UnterminatedString => "Unterminated String",
+
+            // Primitives
+            Kind::Binary => "Binary Literal",
+            Kind::Char => "Char Literal",
+            Kind::Float => "Float Literal",
+            Kind::Hex => "Hex Literal",
+            Kind::Integer => "Integer Literal",
+            Kind::Octal => "Octal Literal",
+
+            // String
+            Kind::StringStart => "String Start",
+            Kind::StringLiteral => "String Literal",
+            Kind::InterpolationStart => "Interpolation Start",
+            Kind::InterpolationEnd => "Interpolation End",
+            Kind::StringEnd => "String End",
+
+            // Keywords
+            Kind::Async => "async",
+            Kind::Break => "break",
+            Kind::Continue => "continue",
+            Kind::Defer => "defer",
+            Kind::Enum => "enum",
+            Kind::Extend => "extend",
+            Kind::False => "false",
+            Kind::Fn => "fn",
+            Kind::For => "for",
+            Kind::In => "in",
+            Kind::Let => "let",
+            Kind::Loop => "loop",
+            Kind::Match => "match",
+            Kind::Mut => "mut",
+            Kind::Proto => "proto",
+            Kind::Pub => "pub",
+            Kind::Struct => "struct",
+            Kind::True => "true",
+            Kind::Type => "type",
+            Kind::Use => "use",
+            Kind::While => "while",
+            Kind::With => "with",
+            Kind::Yield => "yield",
+
+            // Delimiters
+            Kind::LBrace => "{",
+            Kind::LBracket => "[",
+            Kind::LParen => "(",
+            Kind::RBrace => "}",
+            Kind::RBracket => "]",
+            Kind::RParen => ")",
+
+            // Punctuation
+            Kind::And => "&",
+            Kind::AndAnd => "&&",
+            Kind::AndEq => "&=",
+            Kind::At => "@",
+            Kind::Caret => "^",
+            Kind::CaretEq => "^=",
+            Kind::Colon => ":",
+            Kind::Comma => ",",
+            Kind::Dot => ".",
+            Kind::DotDot => "..",
+            Kind::DotDotEq => "..=",
+            Kind::Eq => "=",
+            Kind::EqEq => "==",
+            Kind::Ge => ">=",
+            Kind::Gt => ">",
+            Kind::Le => "<=",
+            Kind::Lt => "<",
+            Kind::Minus => "-",
+            Kind::MinusEq => "-=",
+            Kind::Ne => "!=",
+            Kind::Not => "!",
+            Kind::Or => "|",
+            Kind::OrEq => "|=",
+            Kind::OrOR => "||",
+            Kind::PathSep => "::",
+            Kind::Percent => "%",
+            Kind::PercentEq => "%=",
+            Kind::Plus => "+",
+            Kind::PlusEq => "+=",
+            Kind::Question => "?",
+            Kind::RArrow => "->",
+            Kind::Semi => ";",
+            Kind::Shl => "<<",
+            Kind::ShlEq => "<<=",
+            Kind::Shr => ">>",
+            Kind::ShrEq => ">>=",
+            Kind::Slash => "/",
+            Kind::SlashEq => "/=",
+            Kind::Star => "*",
+            Kind::StarEq => "*=",
+            Kind::Tilde => "~",
+        };
+
+        write!(f, "{s}")
+    }
+}
